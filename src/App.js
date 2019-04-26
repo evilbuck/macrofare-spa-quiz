@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
+
 import Quiz from './components/Quiz';
 import {Activity, Meat, Finished, Measurements} from './components/QuizParts';
 import './App.css';
@@ -33,12 +35,12 @@ class App extends Component {
 
   componentDidMount() {
     let parsedQuery = queryString.parse(window.location.search);
-    this.setState({variation: parsedQuery.v});
+    if (parsedQuery.v) {
+      this.setState({variation: parsedQuery.v || '1'});
+    }
   }
 
   render() {
-    console.log('rendering version: ', this.state.variation);
-    console.log(variations.get(this.state.variation));
     return (
       <div className="App">
         {variations.get(this.state.variation)}
